@@ -9,6 +9,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 
+import java.util.Optional;
+
 @RequiredArgsConstructor
 public class BlockListener implements Listener {
 
@@ -18,15 +20,16 @@ public class BlockListener implements Listener {
     public void onBlockBreak(BlockBreakEvent breakEvent) {
         Player player = breakEvent.getPlayer();
 
-        Agent agent = agentManager.getAgent(player.getUniqueId());
-        if (agent == null) return;
+        Optional<Agent> agentOptional = agentManager.findByUUID(player.getUniqueId());
 
-        // Create a new Agent with updated coins
-        Agent updatedAgent = new Agent(agent.uniqueId(), agent.username(), agent.player(), agent.coins() + 1);
-        agent.textAgent(MessageBuilder.legacy("&a[MC-NODE] Break Block by %player% and add 1 coin").addPlaceholder("%player%", player.getName()));
-        agent.textAgent(MessageBuilder.legacy("&a[MC-NODE] You have now " + agent.coins() + " coins."));
+        agentOptional.ifPresent(agent -> {
+            // Create a new Agent with updated coins
+            Agent updatedAgent = new Agent(agent.uniqueId(), agent.username(), agent.player(), agent.coins() + 1);
+            agent.textAgent(MessageBuilder.legacy("&a[MC-NODE] Break Block by %player% and add 1 coin").addPlaceholder("%player%", player.getName()));
+            agent.textAgent(MessageBuilder.legacy("&a[MC-NODE] You have now " + agent.coins() + " coins."));
 
-        // Update the agent in the manager
-        agentManager.updateAgent(updatedAgent);
+            // Update the agent in the manager
+            agentManager.updateAgent(updatedAgent);
+        });
     }
 }

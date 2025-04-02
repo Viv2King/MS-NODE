@@ -1,8 +1,10 @@
 package mc.node.agent;
 
 import lombok.Getter;
+import mc.node.agent.repository.AgentRepository;
 
 import java.util.Map;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -11,7 +13,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * Provides methods to add, remove, and retrieve agents in a thread-safe manner.
  */
 @Getter
-public class AgentManager implements IAgentManager {
+public class AgentManager implements AgentRepository {
 
     /**
      * A thread-safe map storing agents by their UUID.
@@ -39,19 +41,13 @@ public class AgentManager implements IAgentManager {
         agents.remove(uuid);
     }
 
-    /**
-     * Retrieves an agent by UUID.
-     *
-     * @param uuid The unique identifier of the agent.
-     * @return The Agent instance associated with the UUID, or null if not found.
-     */
-    @Override
-    public Agent getAgent(UUID uuid) {
-        return agents.get(uuid);
-    }
-
     @Override
     public void updateAgent(Agent agent) {
         agents.put(agent.uniqueId(), agent);
+    }
+
+    @Override
+    public Optional<Agent> findByUUID(UUID uuid) {
+        return Optional.ofNullable(agents.get(uuid));
     }
 }

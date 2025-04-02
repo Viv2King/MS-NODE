@@ -1,8 +1,6 @@
-package mc.node.manager;
+package mc.node.agent;
 
 import lombok.Getter;
-import mc.node.agent.Agent;
-import mc.node.agent.interfaces.IAgent;
 
 import java.util.Map;
 import java.util.UUID;
@@ -13,7 +11,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * Provides methods to add, remove, and retrieve agents in a thread-safe manner.
  */
 @Getter
-public class AgentManager implements IAgent {
+public class AgentManager implements IAgentManager {
 
     /**
      * A thread-safe map storing agents by their UUID.
@@ -50,5 +48,10 @@ public class AgentManager implements IAgent {
     @Override
     public Agent getAgent(UUID uuid) {
         return agents.get(uuid);
+    }
+
+    @Override
+    public void updateAgent(Agent agent) {
+        agents.put(agent.uniqueId(), agent);
     }
 }

@@ -2,7 +2,7 @@ package mc.node.bukkit.listeners;
 
 import lombok.RequiredArgsConstructor;
 import mc.node.agent.Agent;
-import mc.node.manager.AgentManager;
+import mc.node.agent.AgentManager;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -49,4 +49,5 @@ public class UserListener implements Listener {
         agentManager.removeAgent(playerId);
         Bukkit.getConsoleSender().sendMessage("Agent removed for player: " + player.getName());
     }
+
 }

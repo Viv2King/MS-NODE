@@ -1,10 +1,8 @@
-package mc.node.agent.interfaces;
-
-import mc.node.agent.Agent;
+package mc.node.agent;
 
 import java.util.UUID;
 
-public interface IAgent {
+public interface IAgentManager {
 
     void addAgent(UUID uuid, Agent agent);
 
@@ -12,4 +10,5 @@ public interface IAgent {
 
     Agent getAgent(UUID uuid);
 
+    void updateAgent(Agent updatedAgent);
 }

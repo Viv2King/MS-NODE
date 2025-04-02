@@ -2,8 +2,9 @@ package mc.node;
 
 import lombok.Getter;
 import mc.node.bukkit.commands.ExampleCommand;
+import mc.node.bukkit.listeners.BlockListener;
 import mc.node.bukkit.listeners.UserListener;
-import mc.node.manager.AgentManager;
+import mc.node.agent.AgentManager;
 import mc.node.objects.plugin.registry.Registry;
 import org.bukkit.event.HandlerList;
 
@@ -19,7 +20,7 @@ public enum Node {
     public void start(NodePlugin plugin) {
         this.plugin = plugin;
 
-        Registry.registerListener(new UserListener(agentManager), plugin);
+        Registry.registerListeners(plugin, new UserListener(agentManager), new BlockListener(agentManager));
         Registry.registerCommand("example", new ExampleCommand("example", "nothing", "ex", "ee"));
     }
 

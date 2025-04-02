@@ -1,0 +1,4 @@
+name: MC-NODE
+version: '1.0'
+main: mc.node.NodePlugin
+api-version: '1.21'

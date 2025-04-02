@@ -1,6 +1,3 @@
-# Create a README file with the content provided
-
-readme_content = """
 # MC Node Plugin
 
 This repository contains a simple Minecraft plugin for managing user interactions, commands, and events. The plugin utilizes the Bukkit API and provides a basic structure for registering commands, listeners, and managing agents.
